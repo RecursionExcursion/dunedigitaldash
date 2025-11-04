@@ -1,13 +1,13 @@
 "use client";
 
-import React, { ComponentPropsWithoutRef, ReactNode } from "react";
-import { Task } from "../../types";
-import { bigArrowLeft, bigArrowRight } from "../../../icons/arrows";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import Image from "next/image";
+import { TaskrTask } from "../../lib/Taskr";
+import { bigArrowLeft, bigArrowRight } from "../../icons/arrows";
 
 type TaskColumnProps = {
   columneTitle: string;
-  tasks: Task[];
+  tasks: TaskrTask[];
   updateTaskStatus: (id: string, status: number) => void;
   status: number;
 };

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { ComponentPropsWithRef, useEffect, useState } from "react";
-import config from "../../../app-config.json" with {type: "json"}
+import config from "../../app-config.json" with {type: "json"}
 
 
 const imgSrcs: Record<string, string> = {}

@@ -1,12 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import config from "../../../../app-config.json" with {type: "json"}
-import { Task } from "../../types";
+import config from "../../../app-config.json" with {type: "json"}
 import { TaskColumn } from "./TaskColumn";
 import CreateTask from "../CreateTask";
+import { TaskrTask } from "../../lib/Taskr";
 
-const TASKS: Task[] = [
+const TASKS: TaskrTask[] = [
   {
     id: "adsfsdfds",
     title: "Pet Foofs",
@@ -33,13 +33,13 @@ const TASKS: Task[] = [
 
 export default function TaskBoard() {
 
-  const [taskBuckets, setTaskBuckets] = useState<Task[][]>([])
+  const [taskBuckets, setTaskBuckets] = useState<TaskrTask[][]>([])
 
   useEffect(() => {
     //load config
     
     (async () =>{
-      const tempTaskBucks: Task[][] = Array.from({ length: config.taskStatuses.length }, () => []);
+      const tempTaskBucks: TaskrTask[][] = Array.from({ length: config.taskStatuses.length }, () => []);
       //load tasks from source
 
       //sort them against config
@@ -65,7 +65,7 @@ export default function TaskBoard() {
 
     taskBuckets.forEach((bucket,bi)=>bucket.forEach((task,ti)=>{
       if(task.id === id){
-        tmpBuckets[status] = [...tmpBuckets[status] , task]
+        tmpBuckets[status]  = [...tmpBuckets[status] , task]
         tmpBuckets[bi].splice(ti,1)
       }
     }))
