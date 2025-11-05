@@ -15,29 +15,28 @@ export type TaskrTask = {
   imageKey?: string;
 };
 
-export interface TaskrRepo {
-  createUser: (user: NewTaskrUser) => Promise<TaskrUser | null>;
-  readUser: (id: string) => Promise<TaskrUser>;
-  updateUser: (user: TaskrUser) => Promise<TaskrUser | null>;
-  deleteUser: (id: string) => Promise<boolean>;
-}
+  type ServiceResponse<T> = {
+  ok: boolean;
+  msg: string;
+  data: T;
+};
 
-export class Taskr {
-  #repo: TaskrRepo;
+export const serviceResponse = <T>(
+  ok: boolean,
+  msg?: string,
+  data?: T
+): ServiceResponse<T> => {
+  return {
+    ok,
+    data: data ?? ({} as T),
+    msg: msg ?? "",
+  };
+};
 
-  constructor(repo: TaskrRepo) {
-    this.#repo = repo;
-  }
-
-  async getUser(id: string): Promise<TaskrUser> {
-    return await this.#repo.readUser(id);
-  }
-
-  async saveUser(user: TaskrUser): Promise<TaskrUser | null> {
-    return await this.#repo.updateUser(user);
-  }
-
-  async createUser(newUser: NewTaskrUser): Promise<TaskrUser | null> {
-    return await this.#repo.createUser(newUser);
-  }
+export interface TaskrService {
+  login: (un: string, pw: string) => Promise<ServiceResponse<string>>;
+  createUser: (user: NewTaskrUser) => Promise<ServiceResponse<TaskrUser>>;
+  readUser: (id: string) => Promise<ServiceResponse<TaskrUser>>;
+  updateUser: (user: TaskrUser) => Promise<ServiceResponse<TaskrUser>>;
+  deleteUser: (id: string) => Promise<ServiceResponse<{ id: string }>>;
 }

@@ -5,26 +5,27 @@ import config from "../../../app-config.json" with {type: "json"}
 import { TaskColumn } from "./TaskColumn";
 import CreateTask from "../CreateTask";
 import { TaskrTask } from "../../lib/Taskr";
+import CreateUser from "../CreateUser";
 
 const TASKS: TaskrTask[] = [
   {
     id: "adsfsdfds",
     title: "Pet Foofs",
-    dueDate: 1762171200000,    
+    dueDate: 1762171200000,
     status: 0,
-    details:"Pet that foofs"
+    details: "Pet that foofs"
   }, {
     id: "gdfhfdgh",
     title: "Love Foofs",
     dueDate: 1762257600000,
     status: 0,
-    details:"love that foofs"
+    details: "love that foofs"
   }, {
     id: "ghfgnfgnfdn",
     title: "Hug Foofs",
     dueDate: 1762776000000,
     status: 10,
-    details:"Hug that foofs"
+    details: "Hug that foofs"
   },
 
 ]
@@ -37,8 +38,8 @@ export default function TaskBoard() {
 
   useEffect(() => {
     //load config
-    
-    (async () =>{
+
+    (async () => {
       const tempTaskBucks: TaskrTask[][] = Array.from({ length: config.taskStatuses.length }, () => []);
       //load tasks from source
 
@@ -52,21 +53,21 @@ export default function TaskBoard() {
         }
       })
       return tempTaskBucks
-    })().then((buckets)=>setTaskBuckets(buckets))
+    })().then((buckets) => setTaskBuckets(buckets))
   }, [])
 
-  function updateStatus(id:string, status: number){
+  function updateStatus(id: string, status: number) {
 
-    if(status < 0 || status > config.taskStatuses.length -1){
+    if (status < 0 || status > config.taskStatuses.length - 1) {
       return
     }
 
     const tmpBuckets = [...taskBuckets]
 
-    taskBuckets.forEach((bucket,bi)=>bucket.forEach((task,ti)=>{
-      if(task.id === id){
-        tmpBuckets[status]  = [...tmpBuckets[status] , task]
-        tmpBuckets[bi].splice(ti,1)
+    taskBuckets.forEach((bucket, bi) => bucket.forEach((task, ti) => {
+      if (task.id === id) {
+        tmpBuckets[status] = [...tmpBuckets[status], task]
+        tmpBuckets[bi].splice(ti, 1)
       }
     }))
 
@@ -75,16 +76,18 @@ export default function TaskBoard() {
 
 
   return (
-    <div>
-      <CreateTask/>
-
-
-      
+    <div className="flex flex-col justify-center items-center w-full gap-10" >
       <>TaskBoard</>
-      <div className="flex gap-20">
-        {taskBuckets.map((ts, i) =>
-          <TaskColumn key={i} columneTitle={config.taskStatuses[i]} tasks={taskBuckets[i]} updateTaskStatus={updateStatus} status={i} />
-        )}
+      <div className="flex justify-around w-full" >
+        <div>
+        <CreateTask />
+      <CreateUser />
+        </div>
+        <div className="flex gap-20">
+          {taskBuckets.map((ts, i) =>
+            <TaskColumn key={i} columneTitle={config.taskStatuses[i]} tasks={taskBuckets[i]} updateTaskStatus={updateStatus} status={i} />
+          )}
+        </div>
       </div>
     </div>
   );

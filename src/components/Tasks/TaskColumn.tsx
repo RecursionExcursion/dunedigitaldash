@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentPropsWithoutRef, ReactNode } from "react";
+import { ComponentPropsWithoutRef } from "react";
 import Image from "next/image";
 import { TaskrTask } from "../../lib/Taskr";
 import { bigArrowLeft, bigArrowRight } from "../../icons/arrows";
@@ -36,18 +36,17 @@ export function TaskColumn(props: TaskColumnProps) {
             </div>
 
             <div className="bg-white p-4 sm:p-6 dark:bg-gray-900">
-              <time
-                dateTime="2022-10-10"
-                className="block text-xs text-gray-500 dark:text-gray-400"
-              >
-                {/* {new Date(t.dueDate)} */}
-              </time>
-
               <a href="#">
                 <h3 className="mt-0.5 text-lg text-gray-900 dark:text-white">
                   {t.title}
                 </h3>
               </a>
+              <time
+                dateTime="2022-10-10"
+                className="block text-xs text-gray-500 dark:text-gray-400"
+              >
+                Due: {new Date(t.dueDate).toLocaleDateString()}
+              </time>
 
               <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400">
                 {t.details}
@@ -66,10 +65,6 @@ export function TaskColumn(props: TaskColumnProps) {
               </ChangeStatusButton>
             </div>
           </article>
-          // <div className="border border-white" key={t.id}>
-          //   <div className="p-4">{t.title}</div>
-
-          // </div>
         );
       })}
     </div>

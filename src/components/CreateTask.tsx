@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { ComponentPropsWithRef, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import config from "../../app-config.json" with {type: "json"}
+import { Input } from "./general/Input";
 
 
 const imgSrcs: Record<string, string> = {}
@@ -47,7 +48,7 @@ export default function CreateTask() {
 
             <form>
                 <div>
-                    <CreateTaskInput
+                    <Input
                         label="Title"
                         value={task.title}
                         onChange={(e) => {
@@ -57,7 +58,7 @@ export default function CreateTask() {
                             }));
                         }}
                     />
-                    <CreateTaskInput
+                    <Input
                         label="Details"
                         value={task.details}
                         onChange={(e) => {
@@ -67,7 +68,7 @@ export default function CreateTask() {
                             }));
                         }}
                     />
-                    <CreateTaskInput
+                    <Input
                         label="Due Date"
                         type="date"
                         value={task.dueDate}
@@ -108,23 +109,4 @@ export default function CreateTask() {
     );
 }
 
-function CreateTaskInput(
-    props: { label: string } & ComponentPropsWithRef<"input">
-) {
-    const { label, ...rest } = props;
 
-    return (
-        <label htmlFor={label}>
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
-                {label}
-            </span>
-
-            <input
-                type="text"
-                id={label}
-                className="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
-                {...rest}
-            />
-        </label>
-    );
-}
