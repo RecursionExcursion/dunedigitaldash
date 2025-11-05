@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Input } from "./general/Input";
 import { createUser } from "../service/taskr-service";
+import Button from "./general/Button";
 
 export default function CreateUser() {
   const [newUser, setNewUser] = useState({
@@ -31,7 +32,7 @@ export default function CreateUser() {
           }));
         }}
       />
-      <button
+      <Button
         onClick={async () => {
           if (!newUser.username || !newUser.password) {
             //TODO handle blank fields
@@ -52,7 +53,7 @@ export default function CreateUser() {
         }}
       >
         Save
-      </button>
+      </Button>
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { TaskColumn } from "./TaskColumn";
 import CreateTask from "../CreateTask";
 import { TaskrTask } from "../../lib/Taskr";
 import CreateUser from "../CreateUser";
+import LoginUser from "../LoginUser";
 
 const TASKS: TaskrTask[] = [
   {
@@ -80,8 +81,9 @@ export default function TaskBoard() {
       <>TaskBoard</>
       <div className="flex justify-around w-full" >
         <div>
-        <CreateTask />
-      <CreateUser />
+          <CreateTask />
+          <CreateUser />
+          <LoginUser />
         </div>
         <div className="flex gap-20">
           {taskBuckets.map((ts, i) =>

@@ -26,38 +26,37 @@ export async function taskrRepo(connectionString: string) {
     },
 
     async getUserById(id: string) {
-      const res = await sql.query(`SELECT * FROM $1 WHERE id = $2`, [
-        tableName,
+      const res = await sql.query(`SELECT * FROM ${tableName} WHERE id = $1`, [
         id,
       ]);
       return res as TaskrUser[];
     },
-    
+
     async getUserByUsername(name: string) {
-      const res = await sql.query(`SELECT * FROM $1 WHERE username = $2`, [
-        tableName,
-        name,
-      ]);
+      const res = await sql.query(
+        `SELECT * FROM ${tableName} WHERE username = $1`,
+        [name]
+      );
       return res as TaskrUser[];
     },
 
     async updateUser(user: TaskrUser) {
       const res = await sql.query(
-        `UPDATE $1
+        `UPDATE ${tableName}
         SET username = EXCLUDED.username,
           password = EXCLUDED.password,
           tasks = EXCLUDED.tasks
         WHERE id = $2
         RETURNING *;`,
-        [tableName, user.id]
+        [user.id]
       );
       return res as TaskrUser[];
     },
 
     async deleteUserById(id: string) {
       const res = await sql.query(
-        `DELETE FROM $1 WHERE id = $2 RETURNING id;`,
-        [tableName, id]
+        `DELETE FROM ${tableName} WHERE id = $1 RETURNING id;`,
+        [id]
       );
       return res as { id: string }[];
     },

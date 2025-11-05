@@ -2,12 +2,8 @@
 
 import { hashString } from "../lib/crypto";
 import { generateToken } from "../lib/jwt";
-import {
-  serviceResponse,
-  NewTaskrUser,
-  TaskrService,
-  TaskrUser,
-} from "../lib/Taskr";
+import { serviceResponse, TaskrService } from "../lib/Taskr";
+import { setCookie } from "./cookie-service";
 import { taskrRepo } from "./neon-service";
 
 const DB_CONN = process.env.DATABASE_DEV;
@@ -27,8 +23,9 @@ const taskrService: TaskrService = {
     //create token
 
     const res = await neonQueries.getUserByUsername(un);
+
     //user not found or bad password
-    if (!res[0] || (await hashString(res[0].password)) !== pw) {
+    if (!res[0] || (await hashString(pw)) !== res[0].password) {
       return serviceResponse(false, "Invalid credientials");
     }
 
@@ -41,11 +38,13 @@ const taskrService: TaskrService = {
       },
       JWT_SECRET,
       {
-        exp: "2h",
+        exp: "7d",
       }
     );
 
-    return serviceResponse(true, "", token);
+    await setCookie("user-session", token, 60 * 60 * 24 * 7); //7 days
+
+    return serviceResponse(true, "");
   },
 
   async createUser(user) {
