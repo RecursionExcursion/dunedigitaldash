@@ -5,6 +5,7 @@ import imgs from "../../service/img-service";
 import { bigArrowLeft, bigArrowRight } from "../../icons/arrows";
 import { trashCan } from "../../icons/trash";
 import { useAppContext } from "../../context/AppContext";
+import { peniclOn } from "../../icons/edit";
 
 export function TaskCard(props: {
     t: TaskrTask
@@ -18,7 +19,10 @@ export function TaskCard(props: {
         <article
             className="overflow-hidden rounded-lg shadow-sm transition hover:shadow-lg dark:shadow-gray-700/25"
         >
-            <div className="flex justify-end">
+            <div className="flex justify-between px-2 py-1">
+                <button className="cursor-pointer" onClick={() => { }}>
+                    {peniclOn}
+                </button>
                 <button className="cursor-pointer" onClick={() => removeTask(t.id)}>
                     {trashCan}
                 </button>

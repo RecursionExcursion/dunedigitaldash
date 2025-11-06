@@ -7,7 +7,8 @@ import CreateTask from "../CreateTask";
 import { TaskrTask } from "../../lib/taskr";
 import { useAppContext } from "../../context/AppContext";
 import CreateUser from "../CreateUser";
-import { deleteTask, updateTasks } from "../../service/taskr-service";
+import { updateTasks } from "../../service/taskr-service";
+import LoginUser from "../LoginUser";
 
 
 
@@ -46,7 +47,7 @@ export default function TaskBoard() {
     }
 
     const tmpBuckets = [...taskBuckets]
-    
+
     taskBuckets.forEach((bucket, bi) => bucket.forEach((task, ti) => {
       if (task.id === id) {
         tmpBuckets[status] = [...tmpBuckets[status], task]
@@ -54,15 +55,15 @@ export default function TaskBoard() {
         task.status = status
       }
     }))
-    
+
     //updates UI instantly 
     setTaskBuckets(tmpBuckets)
-    
+
     //Updates db, results should match UI
     updateTasks(userId, tmpBuckets.flat()).then(loadUserDebounced)
   }
-  
-  
+
+
 
 
   return (
@@ -72,6 +73,7 @@ export default function TaskBoard() {
         <div>
           <CreateTask />
           <CreateUser />
+          <LoginUser />
         </div>
         <div className="flex gap-20">
           {taskBuckets.map((ts, i) =>

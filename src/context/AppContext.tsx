@@ -72,6 +72,7 @@ export const AppProvider = (props: AppProviderProps) => {
 
     useEffect(() => {
         loadUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     if (!userId) {
