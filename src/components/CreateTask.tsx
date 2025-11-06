@@ -1,21 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import config from "../../app-config.json" with {type: "json"}
 import { Input } from "./general/Input";
 
-
+//TODO Move to file, so only happens once
 const imgSrcs: Record<string, string> = {}
 Object.entries(config.imageLinks).forEach(cat => {
     Object.entries(cat[1]).forEach(link => {
         imgSrcs[cat[0] + "|" + link[0]] = link[1] as string
     })
 })
-
-console.log({ imgSrcs });
-
-
 
 export default function CreateTask() {
     const [task, setTask] = useState({

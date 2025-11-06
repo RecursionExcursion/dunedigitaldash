@@ -4,16 +4,13 @@ import { hashString } from "../lib/crypto";
 import { generateToken } from "../lib/jwt";
 import { serviceResponse, TaskrService } from "../lib/Taskr";
 import { setCookie } from "./cookie-service";
+import { createToken } from "./jwt-service";
 import { taskrRepo } from "./neon-service";
 
 const DB_CONN = process.env.DATABASE_DEV;
-const JWT_SECRET = process.env.JWT_SECRET;
 
 if (!DB_CONN) {
   throw Error("No DB Connection string set");
-}
-if (!JWT_SECRET) {
-  throw Error("No JWT SECRET set");
 }
 
 const neonQueries = await taskrRepo(DB_CONN);
@@ -31,16 +28,10 @@ const taskrService: TaskrService = {
 
     const user = res[0];
 
-    const token = await generateToken(
-      {
-        id: user.id,
-        name: user.username,
-      },
-      JWT_SECRET,
-      {
-        exp: "7d",
-      }
-    );
+    const token = await createToken({
+      id: user.id,
+      name: user.username,
+    });
 
     await setCookie("user-session", token, 60 * 60 * 24 * 7); //7 days
 
