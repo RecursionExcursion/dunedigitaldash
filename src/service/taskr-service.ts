@@ -1,11 +1,11 @@
 "use server";
 
 import { hashString } from "../lib/crypto";
-import { generateToken } from "../lib/jwt";
-import { serviceResponse, TaskrService } from "../lib/Taskr";
+import { serviceResponse, TaskrService } from "../lib/taskr";
 import { setCookie } from "./cookie-service";
 import { createToken } from "./jwt-service";
 import { taskrRepo } from "./neon-service";
+import { v4 as uuidv4 } from "uuid";
 
 const DB_CONN = process.env.DATABASE_DEV;
 
@@ -29,8 +29,9 @@ const taskrService: TaskrService = {
     const user = res[0];
 
     const token = await createToken({
-      id: user.id,
+      sub: user.id,
       name: user.username,
+      iss: "DuneDigitalDash",
     });
 
     await setCookie("user-session", token, 60 * 60 * 24 * 7); //7 days
@@ -67,9 +68,28 @@ const taskrService: TaskrService = {
     const res = await neonQueries.deleteUserById(id);
     return serviceResponse(!!res[0], "", res[0]);
   },
+
+  async addTask(id, task) {
+    let res = await neonQueries.getUserById(id);
+
+    if (!res[0]) {
+      return serviceResponse(false, "User not found");
+    }
+
+    const usr = res[0];
+    usr.tasks.push({
+      ...task,
+      id: uuidv4(),
+    });
+
+    res = await neonQueries.updateUser(usr);
+
+    return serviceResponse(true, "", res[0]);
+  },
 };
 
 export const loginUser = taskrService.login;
 export const getUser = taskrService.readUser;
 export const updateUser = taskrService.updateUser;
 export const createUser = taskrService.createUser;
+export const addTask = taskrService.addTask;

@@ -2,26 +2,29 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import config from "../../app-config.json" with {type: "json"}
+
 import { Input } from "./general/Input";
+import { useAppContext } from "../context/AppContext";
+import Button from "./general/Button";
+import { addTask } from "../service/taskr-service";
+import imgs from "../service/img-service";
 
 //TODO Move to file, so only happens once
-const imgSrcs: Record<string, string> = {}
-Object.entries(config.imageLinks).forEach(cat => {
-    Object.entries(cat[1]).forEach(link => {
-        imgSrcs[cat[0] + "|" + link[0]] = link[1] as string
-    })
-})
+
 
 export default function CreateTask() {
+
+    const { loadUser, userId } = useAppContext()
+
     const [task, setTask] = useState({
         title: "",
         details: "",
         dueDate: "",
         status: 0,
+        imgKey: ""
     });
 
-    const [imgSrc, setImgSrc] = useState<string>();
+    // const [imgKey, setImgKey] = useState<string>();
 
     useEffect(() => {
         (async () => {
@@ -81,25 +84,61 @@ export default function CreateTask() {
                             Image
                         </span>
                         <select className="text-black bg-white" onChange={e => {
-                            setImgSrc(e.target.value)
+                            // setImgKey(e.target.value)
+                            setTask(prev => ({
+                                ...prev,
+                                imgKey: e.target.value
+                            }))
                         }} >
                             <option value="">--Please choose an option--</option>
-                            {Object.entries(imgSrcs).map(s => (
-                                <option key={s[0]} value={s[1]}>{s[0]}</option>
+                            {Object.entries(imgs).map(s => (
+                                <option key={s[0]} value={s[0]}>{s[0]}</option>
                             ))}
                         </select>
-                        {imgSrc && (
+                        {task.imgKey && (
                             <div className="relative h-30">
                                 <Image
                                     fill
                                     alt=""
-                                    src={imgSrc}
+                                    src={imgs[task.imgKey]}
                                     className="rounded-xl object-cover shadow-xl transition group-hover:grayscale-50"
                                 />
                             </div>
                         )}
                     </label>
                 </div>
+                <Button onClick={async (e) => {
+                    e.preventDefault()
+
+                    console.log({ task });
+
+                    //in UTC 0
+                    const epochDueDate = new Date(task.dueDate).getTime()
+
+                    console.log(epochDueDate);
+
+
+
+                    const res = await addTask(userId, {
+                        title: task.title,
+                        status: task.status,
+                        details: task.details,
+                        dueDate: epochDueDate,
+                        imageKey: task.imgKey ? task.imgKey : undefined
+                    })
+
+                    if (res.ok) {
+                        loadUser()
+                        //clear fields
+                    } else {
+                        alert(res.msg)
+                    }
+
+
+
+                }}>
+                    Create
+                </Button>
             </form>
         </div>
     );

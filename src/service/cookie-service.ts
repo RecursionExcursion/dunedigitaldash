@@ -22,3 +22,8 @@ export async function setCookie(name: string, token: string, maxAge?: number) {
 
   return { ok: true };
 }
+
+export async function deleteCookie(key: string) {
+  const cookieStore = await cookies();
+  return cookieStore.delete(key);
+}

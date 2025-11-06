@@ -6,16 +6,29 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const session = request.cookies.get("user-session");
-
-  //no cookie or failed token verification
-  if (!session || !(await verifyToken(session.value))) {
+  function routeToLogin() {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
   }
 
-  return NextResponse.next();
+  const session = request.cookies.get("user-session");
+  if (!session) return routeToLogin();
+
+  const token = await verifyToken(session.value);
+  if (!token) return routeToLogin();
+
+  //set user header
+  const res = NextResponse.next({
+    request: {
+      headers: new Headers(request.headers),
+    },
+  });
+
+  res.headers.set("x-user-id", String(token.payload.sub));
+  res.headers.set("x-user-name", String(token.payload.name));
+
+  return res;
 }
 
 export const config = {

@@ -4,38 +4,21 @@ import { useEffect, useState } from "react";
 import config from "../../../app-config.json" with {type: "json"}
 import { TaskColumn } from "./TaskColumn";
 import CreateTask from "../CreateTask";
-import { TaskrTask } from "../../lib/Taskr";
+import { TaskrTask } from "../../lib/taskr";
+import { useAppContext } from "../../context/AppContext";
 import CreateUser from "../CreateUser";
-import LoginUser from "../LoginUser";
-
-const TASKS: TaskrTask[] = [
-  {
-    id: "adsfsdfds",
-    title: "Pet Foofs",
-    dueDate: 1762171200000,
-    status: 0,
-    details: "Pet that foofs"
-  }, {
-    id: "gdfhfdgh",
-    title: "Love Foofs",
-    dueDate: 1762257600000,
-    status: 0,
-    details: "love that foofs"
-  }, {
-    id: "ghfgnfgnfdn",
-    title: "Hug Foofs",
-    dueDate: 1762776000000,
-    status: 10,
-    details: "Hug that foofs"
-  },
-
-]
 
 
 
 export default function TaskBoard() {
 
+  const { username, tasks } = useAppContext()
+
   const [taskBuckets, setTaskBuckets] = useState<TaskrTask[][]>([])
+
+  console.log({ tasks });
+
+
 
   useEffect(() => {
     //load config
@@ -45,7 +28,7 @@ export default function TaskBoard() {
       //load tasks from source
 
       //sort them against config
-      TASKS.forEach(t => {
+      tasks.forEach(t => {
         const bucket = tempTaskBucks[t.status]
         if (bucket) {
           bucket.push(t)
@@ -55,7 +38,11 @@ export default function TaskBoard() {
       })
       return tempTaskBucks
     })().then((buckets) => setTaskBuckets(buckets))
-  }, [])
+  }, [tasks])
+
+  useEffect(() => {
+    console.log({ taskBuckets });
+  }, [taskBuckets])
 
   function updateStatus(id: string, status: number) {
 
@@ -78,16 +65,15 @@ export default function TaskBoard() {
 
   return (
     <div className="flex flex-col justify-center items-center w-full gap-10" >
-      <>TaskBoard</>
+      <h1>{username + "'s"} TaskBoard</h1>
       <div className="flex justify-around w-full" >
         <div>
           <CreateTask />
           <CreateUser />
-          <LoginUser />
         </div>
         <div className="flex gap-20">
           {taskBuckets.map((ts, i) =>
-            <TaskColumn key={i} columneTitle={config.taskStatuses[i]} tasks={taskBuckets[i]} updateTaskStatus={updateStatus} status={i} />
+            <TaskColumn key={i} columneTitle={config.taskStatuses[i]} tasks={taskBuckets[i]} updateTaskStatus={updateStatus} colStatus={i} />
           )}
         </div>
       </div>

@@ -15,7 +15,7 @@ export type TaskrTask = {
   imageKey?: string;
 };
 
-  type ServiceResponse<T> = {
+type ServiceResponse<T> = {
   ok: boolean;
   msg: string;
   data: T;
@@ -39,4 +39,8 @@ export interface TaskrService {
   readUser: (id: string) => Promise<ServiceResponse<TaskrUser>>;
   updateUser: (user: TaskrUser) => Promise<ServiceResponse<TaskrUser>>;
   deleteUser: (id: string) => Promise<ServiceResponse<{ id: string }>>;
+  addTask: (
+    id: string,
+    task: Omit<TaskrTask, "id">
+  ) => Promise<ServiceResponse<TaskrUser>>;
 }
