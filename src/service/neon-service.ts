@@ -1,5 +1,5 @@
 import { neon } from "@neondatabase/serverless";
-import { NewTaskrUser, TaskrUser } from "../lib/taskr";
+import { NewTaskrUser, TaskrTask, TaskrUser } from "../lib/taskr";
 
 const tableName = "taskr_users";
 
@@ -49,6 +49,17 @@ export async function taskrRepo(connectionString: string) {
         WHERE id = $1
         RETURNING *;`,
         [user.id, user.username, user.password, JSON.stringify(user.tasks)]
+      );
+      return res as TaskrUser[];
+    },
+
+    async updateUserTasks(userId: string, tasks: TaskrTask[]) {
+      const res = await sql.query(
+        `UPDATE ${tableName}
+        SET tasks = $2
+        WHERE id = $1
+        RETURNING *;`,
+        [userId,  JSON.stringify(tasks)]
       );
       return res as TaskrUser[];
     },

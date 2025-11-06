@@ -43,4 +43,12 @@ export interface TaskrService {
     id: string,
     task: Omit<TaskrTask, "id">
   ) => Promise<ServiceResponse<TaskrUser>>;
+  updateTasks: (
+    userId: string,
+    tasks: TaskrTask[]
+  ) => Promise<ServiceResponse<TaskrUser>>;
+  deleteTask: (
+    userId: string,
+    taskId: string
+  ) => Promise<ServiceResponse<{ id: string }>>;
 }

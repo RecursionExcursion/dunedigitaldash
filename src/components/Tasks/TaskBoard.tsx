@@ -7,18 +7,15 @@ import CreateTask from "../CreateTask";
 import { TaskrTask } from "../../lib/taskr";
 import { useAppContext } from "../../context/AppContext";
 import CreateUser from "../CreateUser";
+import { deleteTask, updateTasks } from "../../service/taskr-service";
 
 
 
 export default function TaskBoard() {
 
-  const { username, tasks } = useAppContext()
+  const { userId, username, tasks, loadUserDebounced } = useAppContext()
 
   const [taskBuckets, setTaskBuckets] = useState<TaskrTask[][]>([])
-
-  console.log({ tasks });
-
-
 
   useEffect(() => {
     //load config
@@ -40,9 +37,7 @@ export default function TaskBoard() {
     })().then((buckets) => setTaskBuckets(buckets))
   }, [tasks])
 
-  useEffect(() => {
-    console.log({ taskBuckets });
-  }, [taskBuckets])
+
 
   function updateStatus(id: string, status: number) {
 
@@ -51,16 +46,23 @@ export default function TaskBoard() {
     }
 
     const tmpBuckets = [...taskBuckets]
-
+    
     taskBuckets.forEach((bucket, bi) => bucket.forEach((task, ti) => {
       if (task.id === id) {
         tmpBuckets[status] = [...tmpBuckets[status], task]
         tmpBuckets[bi].splice(ti, 1)
+        task.status = status
       }
     }))
-
+    
+    //updates UI instantly 
     setTaskBuckets(tmpBuckets)
+    
+    //Updates db, results should match UI
+    updateTasks(userId, tmpBuckets.flat()).then(loadUserDebounced)
   }
+  
+  
 
 
   return (

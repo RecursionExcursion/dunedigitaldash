@@ -86,6 +86,28 @@ const taskrService: TaskrService = {
 
     return serviceResponse(true, "", res[0]);
   },
+
+  async updateTasks(userId, tasks) {
+    const res = await neonQueries.updateUserTasks(userId, tasks);
+    if (!res[0]) {
+      return serviceResponse(false, "User not found");
+    }
+    return serviceResponse(true, "", res[0]);
+  },
+
+  async deleteTask(userId, taskId) {
+    let res = await neonQueries.getUserById(userId);
+    if (!res[0]) {
+      return serviceResponse(false, "User not found");
+    }
+    const usr = res[0];
+
+    res = await neonQueries.updateUserTasks(
+      usr.id,
+      usr.tasks.filter((t) => t.id !== taskId)
+    );
+    return serviceResponse(true, "", res[0]);
+  },
 };
 
 export const loginUser = taskrService.login;
@@ -93,3 +115,5 @@ export const getUser = taskrService.readUser;
 export const updateUser = taskrService.updateUser;
 export const createUser = taskrService.createUser;
 export const addTask = taskrService.addTask;
+export const updateTasks = taskrService.updateTasks;
+export const deleteTask = taskrService.deleteTask;

@@ -113,10 +113,7 @@ export default function CreateTask() {
                     console.log({ task });
 
                     //in UTC 0
-                    const epochDueDate = new Date(task.dueDate).getTime()
-
-                    console.log(epochDueDate);
-
+                    const epochDueDate = new Date(task.dueDate).getTime();
 
 
                     const res = await addTask(userId, {

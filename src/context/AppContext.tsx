@@ -1,8 +1,8 @@
 "use client"
 
-import { createContext, ReactNode, useContext, useEffect, useState } from "react"
+import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react"
 import { TaskrTask } from "../lib/taskr"
-import { getUser } from "../service/taskr-service"
+import { deleteTask, getUser } from "../service/taskr-service"
 import { logoutUser } from "../service/session-service"
 
 type AppState = {
@@ -10,13 +10,17 @@ type AppState = {
     username: string
     tasks: TaskrTask[],
     loadUser: () => void
+    loadUserDebounced: () => void
+    removeTask: (taskId: string) => void
 }
 
 const AppContext = createContext<AppState>({
     userId: "",
     username: "",
     tasks: [],
-    loadUser: () => { }
+    loadUser: () => { },
+    loadUserDebounced: () => { },
+    removeTask: () => { }
 })
 
 type AppProviderProps = {
@@ -30,8 +34,6 @@ export const AppProvider = (props: AppProviderProps) => {
     const [username, setUsername] = useState("")
     const [userId, setUserId] = useState("")
     const [tasks, setTasks] = useState<TaskrTask[]>([])
-
-
 
     function loadUser() {
         console.log("loading");
@@ -48,6 +50,26 @@ export const AppProvider = (props: AppProviderProps) => {
         })
     }
 
+
+    const loadUserTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    function loadUserDebounced() {
+        if (loadUserTimeoutRef.current) {
+            clearTimeout(loadUserTimeoutRef.current);
+        }
+        console.log("debouncing");
+
+        loadUserTimeoutRef.current = setTimeout(() => {
+            console.log("loading");
+            loadUser();
+        }, 5000);
+    }
+
+
+    function removeTask(taskId: string) {
+        setTasks(tasks.filter(t => t.id !== taskId))
+        deleteTask(userId, taskId).then(loadUserDebounced)
+    }
+
     useEffect(() => {
         loadUser()
     }, [])
@@ -62,7 +84,9 @@ export const AppProvider = (props: AppProviderProps) => {
             userId,
             username,
             tasks,
-            loadUser
+            loadUser,
+            loadUserDebounced,
+            removeTask
         }}>
             {props.children}
         </AppContext.Provider >
@@ -71,3 +95,4 @@ export const AppProvider = (props: AppProviderProps) => {
 
 
 export const useAppContext = () => useContext(AppContext)
+
