@@ -30,6 +30,16 @@
   --color-task-800: #041d30;
   --color-task-900: #02131f;
 
+  --color-task-accent-100: #f1e6f3;
+  --color-task-accent-200: #d6bcd9;
+  --color-task-accent-300: #b089b5;
+  --color-task-accent-400: #87508b; /* extracted from image */
+  --color-task-accent-500: #6c3c6f; /* primary accent tone */
+  --color-task-accent-600: #582e5a;
+  --color-task-accent-700: #432145;
+  --color-task-accent-800: #2e162f;
+  --color-task-accent-900: #1b0b1b;
+
   --color-secondary-mike: #7a3a00;
   --color-secondary-don: #4a1f5e;
   --color-secondary-raph: #71140f;

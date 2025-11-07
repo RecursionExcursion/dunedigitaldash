@@ -40,11 +40,14 @@ export default function CreateTask() {
   }, []);
 
   return (
-    <div className="w-50">
-      <form className="bg-lavender-200 p-8 rounded min-w-fit flex flex-col gap-4">
-        <span className="w-full text-center text-primary-900 font-bold text-3xl text-shadow-md">CreateTask</span>
+    <div className="w-50 flex-1">
+      <form className="bg-task-accent-600 border border-white p-8 rounded min-w-fit flex flex-col gap-4">
+        <span className="w-full text-center text-white font-bold text-3xl text-shadow-md">
+          CreateTask
+        </span>
         <div className="flex flex-col gap-2">
           <Input
+            tag="input"
             label="Title"
             value={task.title}
             onChange={(e) => {
@@ -55,6 +58,7 @@ export default function CreateTask() {
             }}
           />
           <Input
+            tag="textarea"
             label="Details"
             value={task.details}
             onChange={(e) => {
@@ -65,6 +69,7 @@ export default function CreateTask() {
             }}
           />
           <Input
+            tag="input"
             label="Due Date"
             type="date"
             value={task.dueDate}
@@ -76,10 +81,13 @@ export default function CreateTask() {
             }}
           />
 
-          <label htmlFor="Image" className="flex flex-col gap-2">
-            <span className="text-primary-900 font-bold text-shdaow-md">Image</span>
+          <label htmlFor="image" className="flex flex-col gap-2">
+            <span className="text-white font-bold text-shdaow-md">
+              Image
+            </span>
             <select
-              className="text-white bg-task-400 rounded border border-black text-lg/9 p-2"
+              className="text-white bg-task-600 rounded border border-white text-lg/9 p-4"
+              id="image"
               onChange={(e) => {
                 // setImgKey(e.target.value)
                 setTask((prev) => ({

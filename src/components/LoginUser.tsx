@@ -14,8 +14,8 @@ export default function LoginUser() {
 
   const router = useRouter();
   return (
-    <div className="bg-lavender-200 p-8 rounded min-w-fit flex flex-col gap-4">
-      <span className="w-full text-center text-primary-900 font-bold text-3xl text-shadow-md">
+    <div className="bg-task-accent-600 border border-white p-8 rounded min-w-fit flex flex-col gap-4">
+      <span className="w-full text-center text-white font-bold text-3xl text-shadow-md">
         Login
       </span>
 
