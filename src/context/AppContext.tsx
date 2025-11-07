@@ -37,6 +37,7 @@ export const AppProvider = (props: AppProviderProps) => {
 
     function loadUser() {
         console.log("loading");
+        //TODO needs to be cached
         getUser(props.id).then((res) => {
             if (!res.ok) {
                 logoutUser()
