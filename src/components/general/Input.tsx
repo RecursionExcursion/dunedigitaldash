@@ -12,7 +12,7 @@ export function Input(props: Props) {
         <span className="text-white font-bold text-shadow-md">{label}</span>
         <input
           id={label}
-          className="bg-task-600 text-white border border-white rounded text-lg/9 shadow-md p-2"
+          className="bg-task-600 text-white border border-task-accent-900 rounded text-lg/9 shadow-md p-2"
           {...rest}
         />
       </label>
@@ -25,7 +25,7 @@ export function Input(props: Props) {
       <span className="text-white font-bold text-shadow-md">{label}</span>
       <textarea
         id={label}
-        className="bg-task-600 text-white border border-white rounded text-lg/9 shadow-md p-2"
+        className="bg-task-600 text-white border border-task-accent-900 rounded text-lg/9 shadow-md p-2"
         {...rest}
       />
     </label>

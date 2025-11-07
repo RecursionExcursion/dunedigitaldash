@@ -12,7 +12,7 @@ export default function CreateUser() {
   });
 
   return (
-    <div className="bg-task-accent-600 border border-white p-8 rounded min-w-fit flex flex-col gap-4">
+    <div className="bg-task-accent-300/30 border border-task-accent-400 p-8 rounded min-w-fit flex flex-col gap-4">
         <span className="w-full text-center text-white font-bold text-3xl text-shadow-md">Create User</span>
       <Input
         label="Username"

@@ -16,7 +16,7 @@ export function TaskCard(props: {
   const { removeTask } = useAppContext();
 
   return (
-    <article className="overflow-hidden bg-task-600 rounded-lg shadow-md transition hover:shadow-lg border border-white">
+    <article className="overflow-hidden bg-task-600 rounded-lg shadow-md transition hover:shadow-lg border border-task-accent-900">
       <div className="flex justify-between p-4">
         <button className="cursor-pointer text-white" onClick={() => {}}>
           {peniclOn}
@@ -54,7 +54,7 @@ export function TaskCard(props: {
               new Date(t.dueDate).setHours(0, 0, 0, 0) <
               new Date().setHours(0, 0, 0, 0)
                 ? "text-red-700 bg-white px-2 block py-2 w-fit rounded absolute -top-4 right-2"
-                : "text-white bg-task-400 px-2 block py-2 w-fit rounded absolute -top-4 right-2"
+                : "text-white bg-task-900 px-2 block py-2 w-fit rounded absolute -top-4 right-2"
             }
           >
             Due: {new Date(t.dueDate).toLocaleDateString()}
@@ -65,7 +65,7 @@ export function TaskCard(props: {
           {t.details}
         </p>
       </div>
-      <div className="flex justify-between border-t border-white p-4 text-white bg-task-400">
+      <div className="flex justify-between border-t border-task-accent-900 p-4 text-white bg-task-400">
         <ChangeStatusButton
           onClick={() => updateTaskStatus(t.id, colStatus - 1)}
         >

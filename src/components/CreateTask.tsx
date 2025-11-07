@@ -41,7 +41,7 @@ export default function CreateTask() {
 
   return (
     <div className="w-50 flex-1">
-      <form className="bg-task-accent-600 border border-white p-8 rounded min-w-fit flex flex-col gap-4">
+      <form className="bg-task-accent-300/30 border border-task-accent-400 p-8 rounded min-w-fit flex flex-col gap-4">
         <span className="w-full text-center text-white font-bold text-3xl text-shadow-md">
           CreateTask
         </span>
@@ -86,7 +86,7 @@ export default function CreateTask() {
               Image
             </span>
             <select
-              className="text-white bg-task-600 rounded border border-white text-lg/9 p-4"
+              className="text-white bg-task-600 rounded border border-task-accent-900 text-lg/9 p-4"
               id="image"
               onChange={(e) => {
                 // setImgKey(e.target.value)
