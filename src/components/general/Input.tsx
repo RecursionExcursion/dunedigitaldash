@@ -14,7 +14,7 @@ export function Input(
       <input
         type="text"
         id={label}
-        className="bg-task-400 text-white border border-white rounded text-lg/9 shadow-md"
+        className="bg-task-400 text-white border border-black rounded text-lg/9 shadow-md"
         {...rest}
       />
     </label>

@@ -10,6 +10,7 @@
 .btn-task {
   background: var(--color-task-600);
   color: white;
+  border: 2px black solid;
 }
 
 .btn-mike {

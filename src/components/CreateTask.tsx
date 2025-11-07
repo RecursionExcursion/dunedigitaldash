@@ -76,10 +76,10 @@ export default function CreateTask() {
             }}
           />
 
-          <label htmlFor="Image">
+          <label htmlFor="Image" className="flex flex-col gap-2">
             <span className="text-primary-900 font-bold text-shdaow-md">Image</span>
             <select
-              className="text-white bg-task-400 rounded border text-lg/9 p-2"
+              className="text-white bg-task-400 rounded border border-black text-lg/9 p-2"
               onChange={(e) => {
                 // setImgKey(e.target.value)
                 setTask((prev) => ({
@@ -96,7 +96,7 @@ export default function CreateTask() {
               ))}
             </select>
             {task.imgKey && (
-              <div className="relative h-30">
+              <div className="relative h-30 shadow-md">
                 <Image
                   fill
                   alt=""

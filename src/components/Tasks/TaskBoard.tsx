@@ -70,10 +70,8 @@ export default function TaskBoard() {
     <div className="flex flex-col justify-center items-center w-full gap-10" >
       <h1>{username + "'s"} TaskBoard</h1>
       <div className="flex justify-around w-full" >
-        <div>
+        <div className="flex flex-col gap-8">
           <CreateTask />
-          <CreateUser />
-          <LoginUser />
         </div>
         <div className="flex gap-20">
           {taskBuckets.map((ts, i) =>
