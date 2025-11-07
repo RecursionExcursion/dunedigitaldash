@@ -1,5 +1,5 @@
 import { neon } from "@neondatabase/serverless";
-import { NewTaskrUser, TaskrTask, TaskrUser } from "../lib/taskr";
+import { NewTaskrUser, TaskrTask, TaskrUser } from "../lib/Taskr";
 
 const tableName = "taskr_users";
 

@@ -6,15 +6,15 @@ export function Input(
   const { label, ...rest } = props;
 
   return (
-    <label htmlFor={label}>
-      <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+    <label htmlFor={label} className="flex flex-col ">
+      <span className="text-primary-900 font-bold text-shadow-md ">
         {label}
       </span>
 
       <input
         type="text"
         id={label}
-        className="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+        className="bg-task-400 text-white border border-white rounded text-lg/9 shadow-md"
         {...rest}
       />
     </label>

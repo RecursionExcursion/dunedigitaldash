@@ -1,0 +1,72 @@
+@theme {
+  /* =========================
+     Primary (green) scale
+     ========================= */
+  --color-primary-50: #e5f2ec;
+  --color-on-primary-50: #000000; /* AAA */
+  --color-primary-100: #c8e1d5;
+  --color-on-primary-100: #000000; /* AAA */
+  --color-primary-200: #a3cdb9;
+  --color-on-primary-200: #000000; /* AAA */
+  --color-primary-300: #7a9d88;
+  --color-on-primary-300: #000000; /* AAA */
+  /* 400/500 are mid-contrast; use for large text or add an outline */
+  --color-primary-600: #3c5e4b;
+  --color-primary-700: #304c3d;
+  --color-primary-800: #20342a;
+  --color-primary-900: #15231c;
+
+  /* =========================
+     secondarys (bandanas) — deep tones
+     (white text = AAA)
+     ========================= */
+  --color-task-100: #e6edf5;
+  --color-task-200: #b3c7e0;
+  --color-task-300: #6da3c9;
+  --color-task-400: #3a90c3; /* Leonardo blue */
+  --color-task-500: #0b3b66; /* primary */
+  --color-task-600: #093358;
+  --color-task-700: #072a4a; /* dark base */
+  --color-task-800: #041d30;
+  --color-task-900: #02131f;
+
+  --color-secondary-mike: #7a3a00;
+  --color-secondary-don: #4a1f5e;
+  --color-secondary-raph: #71140f;
+
+  /* Optional hover/active (even darker) */
+  --color-secondary-mike-700: #592a00;
+  --color-secondary-don-700: #371749;
+  --color-secondary-raph-700: #4f0f0c;
+
+  /* =========================
+     terinary backgrounds (poster fields)
+     — light tints so black text = AAA
+     ========================= */
+  --color-terinary-task: #e9d7f5;
+  --color-on-terinary-task: #000000; /* lavender (task terinary) */
+  --color-terinary-mike: #f5c4bf;
+  --color-on-terinary-mike: #000000; /* soft red (Mikey terinary) */
+  --color-terinary-don: #f6e3aa;
+  --color-on-terinary-don: #000000; /* warm gold (Donny terinary) */
+  --color-terinary-raph: #cfe6e5;
+
+  /* Slightly deeper terinary variants (still AAA with black) */
+  --color-lavender-200: #d9c4ee;
+  --color-on-terinary-task-200: #000000;
+  --color-terinary-mike-200: #efb3ad;
+  --color-on-terinary-mike-200: #000000;
+  --color-terinary-don-200: #efd88e;
+  --color-on-terinary-don-200: #000000;
+  --color-terinary-raph-200: #b6d9d7;
+  --color-on-terinary-raph-200: #000000;
+
+  /* =========================
+     Neutrals & surfaces
+     ========================= */
+  --color-surface: #eee9cb;
+  --color-on-surface: #000000; /* AAA */
+  --color-ink: #000000;
+  --color-white: #ffffff;
+  --color-black: #000000;
+}

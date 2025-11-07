@@ -1,7 +1,7 @@
 "use server";
 
 import { hashString } from "../lib/crypto";
-import { serviceResponse, TaskrService } from "../lib/taskr";
+import { serviceResponse, TaskrService } from "../lib/Taskr";
 import { setCookie } from "./cookie-service";
 import { createToken } from "./jwt-service";
 import { taskrRepo } from "./neon-service";
