@@ -16,8 +16,16 @@ export function TaskCard(props: {
   const { removeTask } = useAppContext();
 
   return (
-    <article className="overflow-hidden bg-task-600 rounded-lg shadow-md transition hover:shadow-lg border border-task-accent-900">
-      <div className="flex justify-between p-4">
+    // <article className="overflow-hidden bg-task-600/30 md:bg-task-600 rounded-lg shadow-md transition hover:shadow-lg border border-task-accent-900">
+    <article
+      className="rounded-full p-8 max-w-48 min-w-48 min-h-48 max-h-48
+           bg-gradient-to-br from-white/30 via-white/5 to-transparent backdrop-blur-xs 
+           border border-white/30 
+           shadow-[inset_0_4px_10px_rgba(255,255,255,0.3),0_0_20px_rgba(255,255,255,0.2)]
+           hover:shadow-[inset_0_6px_12px_rgba(255,255,255,0.4),0_0_30px_rgba(255,255,255,0.4)]
+           transition-all duration-500 ease-out"
+    >
+      <div className="flex justify-between p-4 hidden md:block">
         <button className="cursor-pointer text-white" onClick={() => {}}>
           {peniclOn}
         </button>
@@ -28,7 +36,7 @@ export function TaskCard(props: {
           {trashCan}
         </button>
       </div>
-      <div className="relative h-30">
+      <div className="relative h-30 hidden md:block">
         <Image
           fill
           //TODO
@@ -53,19 +61,19 @@ export function TaskCard(props: {
             className={
               new Date(t.dueDate).setHours(0, 0, 0, 0) <
               new Date().setHours(0, 0, 0, 0)
-                ? "text-red-700 bg-white px-2 block py-2 w-fit rounded absolute -top-4 right-2"
-                : "text-white bg-task-900 px-2 block py-2 w-fit rounded absolute -top-4 right-2"
+                ? "text-red-700 bg-white px-2 block py-2 w-fit rounded md:absolute top-8 right-2"
+                : "text-white bg-task-900 px-2 block py-2 w-fit rounded md:absolute top-8 right-2"
             }
           >
             Due: {new Date(t.dueDate).toLocaleDateString()}
           </span>
         </time>
 
-        <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400">
+        <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 dark:text-gray-400 hidden md:block">
           {t.details}
         </p>
       </div>
-      <div className="flex justify-between border-t border-task-accent-900 p-4 text-white bg-task-400">
+      <div className="flex justify-between p-4 text-white bg-transparent">
         <ChangeStatusButton
           onClick={() => updateTaskStatus(t.id, colStatus - 1)}
         >

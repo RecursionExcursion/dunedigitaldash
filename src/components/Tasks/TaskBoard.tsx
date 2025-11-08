@@ -70,10 +70,10 @@ export default function TaskBoard() {
     <div className="flex flex-col justify-center py-8 items-center w-full gap-10 container mx-auto flex-1" >
       <h1 className="text-5xl font-bold">{username + "'s"} TaskBoard</h1>
       <div className="flex justify-around w-full flex-1" >
-        <div className="flex flex-col gap-8 flex-1">
+        <div className="md:flex flex-col gap-8 flex-1 hidden">
           <CreateTask />
         </div>
-        <div className="flex gap-20 flex-2">
+        <div className="flex flex-col gap-8 md:flex-row md:flex-2 w-full">
           {taskBuckets.map((ts, i) =>
             <TaskColumn key={i} columneTitle={config.taskStatuses[i]} tasks={taskBuckets[i]} updateTaskStatus={updateStatus} colStatus={i} />
           )}
