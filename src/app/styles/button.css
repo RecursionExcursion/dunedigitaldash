@@ -1,0 +1,25 @@
+.btn {
+  @apply inline-flex items-center justify-center px-4 py-2 rounded-2xl font-medium shadow-md hover:shadow-xl hover:cursor-pointer;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--color-terinary-don-200);
+  outline-offset: 3px;
+}
+
+.btn-task {
+  background: var(--color-task-600);
+  color: white;
+  border: 2px #1b0b1b solid;
+}
+
+.btn-mike {
+  background: var(--color-secondary-mike);
+  color: var(--color-on-secondary-mike);
+}
+
+.btn-don {
+  background: var(--color-secondary-don);
+  color: var(--color-on-secondary-don);
+}
+

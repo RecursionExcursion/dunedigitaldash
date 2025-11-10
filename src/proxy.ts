@@ -5,6 +5,9 @@ export async function proxy(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith("/login")) {
     return NextResponse.next();
   }
+   if (request.nextUrl.pathname.startsWith("/create")) {
+    return NextResponse.next();
+  }
 
   function routeToLogin() {
     const url = request.nextUrl.clone();

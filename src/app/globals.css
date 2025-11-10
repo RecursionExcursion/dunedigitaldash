@@ -1,26 +1,61 @@
 @import "tailwindcss";
+@import "swiper/css";
+@import "swiper/css/free-mode";
+@import "swiper/css/pagination";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+@import "./styles/index.css";
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.swiper-pagination {
+  bottom: 5px !important;
+}
+
+/* Handy component/utility helpers (optional) */
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-2xl font-medium shadow;
+  }
+  .btn:focus-visible {
+    outline: 3px solid var(--color-terinary-don-200);
+    outline-offset: 3px;
+  }
+
+  .btn-task {
+    background: var(--color-secondary-task);
+    color: var(--color-on-secondary-task);
+  }
+  .btn-mike {
+    background: var(--color-secondary-mike);
+    color: var(--color-on-secondary-mike);
+  }
+  .btn-don {
+    background: var(--color-secondary-don);
+    color: var(--color-on-secondary-don);
+  }
+  .btn-raph {
+    background: var(--color-secondary-raph);
+    color: var(--color-on-secondary-raph);
+  }
+
+  .terinary-task {
+    background: var(--color-terinary-task);
+    color: var(--color-on-terinary-task);
+  }
+  .terinary-mike {
+    background: var(--color-terinary-mike);
+    color: var(--color-on-terinary-mike);
+  }
+  .terinary-don {
+    background: var(--color-terinary-don);
+    color: var(--color-on-terinary-don);
+  }
+  .terinary-raph {
+    background: var(--color-terinary-raph);
+    color: var(--color-on-terinary-raph);
+  }
 }

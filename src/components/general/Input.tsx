@@ -1,20 +1,31 @@
 import { ComponentPropsWithRef } from "react";
 
-export function Input(
-  props: { label: string } & ComponentPropsWithRef<"input">
-) {
-  const { label, ...rest } = props;
+type InputProps = { label: string; tag: "input" } & ComponentPropsWithRef<"input">;
+type TextareaProps = { label: string; tag: "textarea" } & ComponentPropsWithRef<"textarea">;
+type Props = InputProps | TextareaProps;
 
+export function Input(props: Props) {
+  if (props.tag === "input") {
+    const { label, tag, ...rest } = props; 
+    return (
+      <label htmlFor={label} className="flex flex-col">
+        <span className="text-white font-bold text-shadow-md">{label}</span>
+        <input
+          id={label}
+          className="bg-task-600 text-white border border-task-accent-900 rounded text-lg/9 shadow-md p-2"
+          {...rest}
+        />
+      </label>
+    );
+  }
+
+  const { label, tag, ...rest } = props;
   return (
-    <label htmlFor={label}>
-      <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
-        {label}
-      </span>
-
-      <input
-        type="text"
+    <label htmlFor={label} className="flex flex-col">
+      <span className="text-white font-bold text-shadow-md">{label}</span>
+      <textarea
         id={label}
-        className="mt-0.5 w-full rounded border-gray-300 shadow-sm sm:text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+        className="bg-task-600 text-white border border-task-accent-900 rounded text-lg/9 shadow-md p-2"
         {...rest}
       />
     </label>
