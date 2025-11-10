@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react"
-import { TaskrTask } from "../lib/taskr"
+import { TaskrTask } from "../lib/Taskr"
 import { deleteTask, getUser } from "../service/taskr-service"
 import { logoutUser } from "../service/session-service"
 
