@@ -1,5 +1,5 @@
 import { neon } from "@neondatabase/serverless";
-import { NewTaskrUser, TaskrTask, TaskrUser } from "../lib/Taskr";
+import { NewTaskrUser, TaskrTask, TaskrUser } from "../../lib/taskr-types";
 
 const tableName = "taskr_users";
 
@@ -59,7 +59,7 @@ export async function taskrRepo(connectionString: string) {
         SET tasks = $2
         WHERE id = $1
         RETURNING *;`,
-        [userId,  JSON.stringify(tasks)]
+        [userId, JSON.stringify(tasks)]
       );
       return res as TaskrUser[];
     },

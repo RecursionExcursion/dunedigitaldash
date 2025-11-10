@@ -4,11 +4,8 @@ import { useEffect, useState } from "react";
 import config from "../../../app-config.json" with {type: "json"}
 import { TaskColumn } from "./TaskColumn";
 import CreateTask from "../CreateTask";
-import { TaskrTask } from "../../lib/Taskr";
+import { TaskrTask } from "../../lib/taskr-types";
 import { useAppContext } from "../../context/AppContext";
-import CreateUser from "../CreateUser";
-import { updateTasks } from "../../service/taskr-service";
-import LoginUser from "../LoginUser";
 
 
 
@@ -60,7 +57,7 @@ export default function TaskBoard() {
     setTaskBuckets(tmpBuckets)
 
     //Updates db, results should match UI
-    updateTasks(userId, tmpBuckets.flat()).then(loadUserDebounced)
+    // updateTasks(userId, tmpBuckets.flat()).then(loadUserDebounced)
   }
 
 

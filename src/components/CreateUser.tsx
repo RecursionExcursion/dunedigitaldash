@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Input } from "./general/Input";
-import { createUser } from "../service/taskr-service";
+import { createUser } from "../app/api/taskr-service";
 import Button from "./general/Button";
 
 export default function CreateUser() {
@@ -10,11 +10,12 @@ export default function CreateUser() {
     username: "",
     password: "",
   });
-
+  //TODO
   return (
     <div className="bg-task-accent-300/30 border border-task-accent-400 p-8 rounded min-w-fit flex flex-col gap-4">
-        <span className="w-full text-center text-white font-bold text-3xl text-shadow-md">Create User</span>
+      <span className="w-full text-center text-white font-bold text-3xl text-shadow-md">Create User</span>
       <Input
+        tag="input"
         label="Username"
         onChange={(e) => {
           setNewUser((prev) => ({
@@ -24,6 +25,7 @@ export default function CreateUser() {
         }}
       />
       <Input
+        tag="input"
         label="Password"
         onChange={(e) => {
           setNewUser((prev) => ({

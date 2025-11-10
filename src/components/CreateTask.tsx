@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { Input } from "./general/Input";
 import { useAppContext } from "../context/AppContext";
 import Button from "./general/Button";
-import { addTask } from "../service/taskr-service";
 import imgs from "../service/img-service";
 
 //TODO Move to file, so only happens once
@@ -116,29 +115,29 @@ export default function CreateTask() {
           </label>
         </div>
         <Button
-          onClick={async (e) => {
-            e.preventDefault();
+          // onClick={async (e) => {
+          //   e.preventDefault();
 
-            console.log({ task });
+          //   console.log({ task });
 
-            //in UTC 0
-            const epochDueDate = new Date(task.dueDate).getTime();
+          //   //in UTC 0
+          //   const epochDueDate = new Date(task.dueDate).getTime();
 
-            const res = await addTask(userId, {
-              title: task.title,
-              status: task.status,
-              details: task.details,
-              dueDate: epochDueDate,
-              imageKey: task.imgKey ? task.imgKey : undefined,
-            });
+          //   const res = await addTask(userId, {
+          //     title: task.title,
+          //     status: task.status,
+          //     details: task.details,
+          //     dueDate: epochDueDate,
+          //     imageKey: task.imgKey ? task.imgKey : undefined,
+          //   });
 
-            if (res.ok) {
-              loadUser();
-              //clear fields
-            } else {
-              alert(res.msg);
-            }
-          }}
+          //   if (res.ok) {
+          //     loadUser();
+          //     //clear fields
+          //   } else {
+          //     alert(res.msg);
+          //   }
+          // }}
         >
           Create
         </Button>

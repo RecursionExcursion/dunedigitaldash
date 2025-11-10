@@ -1,7 +1,7 @@
 "use server";
 
 import { JWTPayload } from "jose";
-import { generateToken, validateToken } from "../lib/jwt";
+import { generateToken, validateToken } from "../app/api/jwt";
 import { deleteCookie } from "./cookie-service";
 
 const JWT_SECRET = process.env.JWT_SECRET;

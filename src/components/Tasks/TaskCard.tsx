@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef } from "react";
-import { TaskrTask } from "../../lib/Taskr";
+import { TaskrTask } from "../../lib/taskr-types";
 import Image from "next/image";
 import imgs from "../../service/img-service";
 import { bigArrowLeft, bigArrowRight } from "../../icons/arrows";

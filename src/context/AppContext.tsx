@@ -1,9 +1,9 @@
 "use client"
 
 import { createContext, ReactNode, useContext, useEffect, useRef, useState } from "react"
-import { TaskrTask } from "../lib/Taskr"
-import { deleteTask, getUser } from "../service/taskr-service"
+import { TaskrTask } from "../lib/taskr-types"
 import { logoutUser } from "../service/session-service"
+import { getUser } from "../service/user-service"
 
 type AppState = {
     userId: string
@@ -36,15 +36,7 @@ export const AppProvider = (props: AppProviderProps) => {
     const [tasks, setTasks] = useState<TaskrTask[]>([])
 
     function loadUser() {
-        console.log("loading");
-        //TODO needs to be cached
-        getUser(props.id).then((res) => {
-            if (!res.ok) {
-                logoutUser()
-                return
-            }
-
-
+        getUser().then((res) => {
             setUserId(props.id);
             setUsername(res.data.username);
             setTasks(res.data.tasks);
@@ -68,7 +60,7 @@ export const AppProvider = (props: AppProviderProps) => {
 
     function removeTask(taskId: string) {
         setTasks(tasks.filter(t => t.id !== taskId))
-        deleteTask(userId, taskId).then(loadUserDebounced)
+        // deleteTask(userId, taskId).then(loadUserDebounced)
     }
 
     useEffect(() => {

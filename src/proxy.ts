@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { verifyToken } from "./service/jwt-service";
+import { verifyToken } from "./service/token-service";
 
 export async function proxy(request: NextRequest) {
   if (request.nextUrl.pathname.startsWith("/login")) {

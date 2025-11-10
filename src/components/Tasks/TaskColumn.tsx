@@ -1,6 +1,6 @@
 "use client";
 
-import { TaskrTask } from "../../lib/Taskr";
+import { TaskrTask } from "../../lib/taskr-types";
 import { TaskCard } from "./TaskCard";
 
 import { Swiper, SwiperSlide } from "swiper/react";

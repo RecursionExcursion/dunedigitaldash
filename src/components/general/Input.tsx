@@ -6,7 +6,7 @@ type Props = InputProps | TextareaProps;
 
 export function Input(props: Props) {
   if (props.tag === "input") {
-    const { label, tag, ...rest } = props; 
+    const { label, tag, ...rest } = props;
     return (
       <label htmlFor={label} className="flex flex-col">
         <span className="text-white font-bold text-shadow-md">{label}</span>
@@ -31,3 +31,4 @@ export function Input(props: Props) {
     </label>
   );
 }
+

@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Input } from "./general/Input";
 import Button from "./general/Button";
-import { loginUser } from "../service/taskr-service";
 import { useRouter } from "next/navigation";
+import { login } from "../service/user-service";
 
 export default function LoginUser() {
   const [userLogin, setUserLogin] = useState({
@@ -20,6 +20,7 @@ export default function LoginUser() {
       </span>
 
       <Input
+        tag="input"
         label="Username"
         onChange={(e) => {
           setUserLogin((prev) => ({
@@ -29,6 +30,7 @@ export default function LoginUser() {
         }}
       />
       <Input
+        tag="input"
         label="Password"
         onChange={(e) => {
           setUserLogin((prev) => ({
@@ -43,7 +45,7 @@ export default function LoginUser() {
             alert("Username and password required");
             return;
           }
-          const res = await loginUser(userLogin.username, userLogin.password);
+          const res = await login(userLogin.username, userLogin.password);
 
           if (res.ok) {
             // alert("User logged in")
