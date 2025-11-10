@@ -1,10 +1,18 @@
 @import "tailwindcss";
+@import "swiper/css";
+@import "swiper/css/free-mode";
+@import "swiper/css/pagination";
+
 @import "./styles/index.css";
 
-body{
+body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+.swiper-pagination {
+  bottom: 5px !important;
 }
 
 /* Handy component/utility helpers (optional) */

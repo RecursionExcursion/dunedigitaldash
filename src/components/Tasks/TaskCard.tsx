@@ -18,7 +18,7 @@ export function TaskCard(props: {
   return (
     // <article className="overflow-hidden bg-task-600/30 md:bg-task-600 rounded-lg shadow-md transition hover:shadow-lg border border-task-accent-900">
     <article
-      className="rounded-full p-8 max-w-48 min-w-48 min-h-48 max-h-48
+      className="mx-auto rounded-full p-8 max-w-48 min-w-48 min-h-48 max-h-48
            bg-gradient-to-br from-white/30 via-white/5 to-transparent backdrop-blur-xs 
            border border-white/30 
            shadow-[inset_0_4px_10px_rgba(255,255,255,0.3),0_0_20px_rgba(255,255,255,0.2)]
@@ -47,7 +47,7 @@ export function TaskCard(props: {
         />
       </div>
 
-      <div className="p-4 relative">
+      <div className="relative">
         <a href="#">
           <h3 className="mt-0.5 text-lg text-gray-900 dark:text-white">
             {t.title}
@@ -62,7 +62,7 @@ export function TaskCard(props: {
               new Date(t.dueDate).setHours(0, 0, 0, 0) <
               new Date().setHours(0, 0, 0, 0)
                 ? "text-red-700 bg-white px-2 block py-2 w-fit rounded md:absolute top-8 right-2"
-                : "text-white bg-task-900 px-2 block py-2 w-fit rounded md:absolute top-8 right-2"
+                : "text-task-900 bg-white px-2 block py-2 w-fit rounded md:absolute top-8 right-2"
             }
           >
             Due: {new Date(t.dueDate).toLocaleDateString()}
@@ -91,7 +91,7 @@ export function TaskCard(props: {
 
 function ChangeStatusButton(props: ComponentPropsWithoutRef<"button">) {
   return (
-    <button className="cursor-pointer font-extrabold text-task-600" {...props}>
+    <button className="cursor-pointer font-extrabold text-white" {...props}>
       {props.children}
     </button>
   );
