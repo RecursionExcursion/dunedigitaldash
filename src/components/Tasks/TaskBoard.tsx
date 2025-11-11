@@ -6,12 +6,13 @@ import { TaskColumn } from "./TaskColumn";
 import CreateTask from "../CreateTask";
 import { TaskrTask } from "../../lib/taskr-types";
 import { useAppContext } from "../../context/AppContext";
+import { updateTasks } from "../../service/task-service";
 
 
 
 export default function TaskBoard() {
 
-  const { userId, username, tasks, loadUserDebounced } = useAppContext()
+  const { username, tasks, setTasks } = useAppContext()
 
   const [taskBuckets, setTaskBuckets] = useState<TaskrTask[][]>([])
 
@@ -57,7 +58,9 @@ export default function TaskBoard() {
     setTaskBuckets(tmpBuckets)
 
     //Updates db, results should match UI
-    // updateTasks(userId, tmpBuckets.flat()).then(loadUserDebounced)
+    updateTasks(tmpBuckets.flat()).then((res) => {
+      if (res.ok) setTasks(res.data.tasks)
+    })
   }
 
 

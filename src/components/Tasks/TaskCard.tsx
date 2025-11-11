@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { TaskrTask } from "../../lib/taskr-types";
 import Image from "next/image";
 import imgs from "../../service/img-service";
-import { bigArrowDown, bigArrowLeft, bigArrowRight, bigArrowUp } from "../../icons/arrows";
+import { bigArrowDown, bigArrowUp } from "../../icons/arrows";
 import { trashCan } from "../../icons/trash";
 import { useAppContext } from "../../context/AppContext";
 import { peniclOn } from "../../icons/edit";

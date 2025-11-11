@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { Input } from "./general/Input";
-import { createUser } from "../app/api/taskr-service";
+// import { createUser } from "../app/api/taskr-service";
 import Button from "./general/Button";
+import { createUser } from "../service/user-service";
 
 export default function CreateUser() {
   const [newUser, setNewUser] = useState({
@@ -42,10 +43,7 @@ export default function CreateUser() {
             return;
           }
 
-          const res = await createUser({
-            ...newUser,
-            tasks: [],
-          });
+          const res = await createUser(newUser.username, newUser.password);
           //TODO
           if (res.ok) {
             alert("User created");

@@ -1,23 +1,6 @@
 import { TaskrUser } from "../lib/taskr-types";
 import { getCookie } from "./cookie-service";
-
-type ServiceResponse<T> = {
-  ok: boolean;
-  msg: string;
-  data: T;
-};
-
-export const serviceResponse = <T>(
-  ok?: boolean,
-  msg?: string,
-  data?: T
-): ServiceResponse<T> => {
-  return {
-    ok: ok ?? true,
-    data: data ?? ({} as T),
-    msg: msg ?? "",
-  };
-};
+import { serviceResponse, ServiceResponse } from "./types";
 
 export async function login(
   username: string,
@@ -49,5 +32,21 @@ export async function getUser(): Promise<ServiceResponse<TaskrUser>> {
     return serviceResponse(true, "", usr);
   }
 
+  return serviceResponse(false);
+}
+
+export async function createUser(username: string, password: string) {
+  const res = await fetch("/api/user", {
+    method: "POST",
+    body: JSON.stringify({
+      username,
+      password,
+    }),
+  });
+
+  //TODO maybe login here?
+  if (res.ok) {
+    return serviceResponse(true);
+  }
   return serviceResponse(false);
 }

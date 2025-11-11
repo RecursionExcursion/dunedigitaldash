@@ -10,7 +10,7 @@ export const POST = pipe(authMW)(async (req) => {
   }
   const { task } = await req.json();
 
-  if (!id || !task) {
+  if (!task) {
     return new NextResponse(null, { status: 400 });
   }
 
@@ -33,13 +33,13 @@ export const PUT = pipe(authMW)(async (req) => {
     return new NextResponse(null, { status: 404 });
   }
 
-  const { task } = await req.json();
+  const { tasks } = await req.json();
 
-  if (!id || !task) {
+  if (!tasks) {
     return new NextResponse(null, { status: 400 });
   }
 
-  const res = await taskrService.updateTasks(id, task);
+  const res = await taskrService.updateTasks(id, tasks);
 
   if (res.ok()) {
     return NextResponse.json(res.data, {
@@ -57,14 +57,14 @@ export const DELETE = pipe(authMW)(async (req) => {
   if (!id) {
     return new NextResponse(null, { status: 404 });
   }
-  
+
   const { taskId } = await req.json();
 
-  if (!id || !taskId) {
+  if (!taskId) {
     return new NextResponse(null, { status: 400 });
   }
 
   const res = await taskrService.deleteTask(id, taskId);
 
-  return new NextResponse(null, { status: res.code });
+  return NextResponse.json(res.data, { status: res.code });
 });

@@ -2,6 +2,7 @@ import { neon } from "@neondatabase/serverless";
 import { NewTaskrUser, TaskrTask, TaskrUser } from "../../lib/taskr-types";
 
 const tableName = "taskr_users";
+const userFieldsNoPw = "id, username, tasks";
 
 export async function taskrRepo(connectionString: string) {
   const sql = neon(connectionString);
@@ -18,8 +19,7 @@ export async function taskrRepo(connectionString: string) {
       const res = await sql.query(
         `INSERT into ${tableName} (username, password, tasks) 
         VALUES ($1, $2, $3::jsonb)
-        RETURNING *;
-        `,
+        RETURNING ${userFieldsNoPw};`,
         [user.username, user.password, JSON.stringify(user.tasks)]
       );
       return res as TaskrUser[];
@@ -29,12 +29,13 @@ export async function taskrRepo(connectionString: string) {
       const res = await sql.query(`SELECT * FROM ${tableName} WHERE id = $1`, [
         id,
       ]);
+      console.log({ res });
       return res as TaskrUser[];
     },
 
     async getUserByUsername(name: string) {
       const res = await sql.query(
-        `SELECT * FROM ${tableName} WHERE username = $1`,
+        `SELECT ${userFieldsNoPw} FROM ${tableName} WHERE username = $1`,
         [name]
       );
       return res as TaskrUser[];
@@ -58,7 +59,7 @@ export async function taskrRepo(connectionString: string) {
         `UPDATE ${tableName}
         SET tasks = $2
         WHERE id = $1
-        RETURNING *;`,
+        RETURNING ${userFieldsNoPw};`,
         [userId, JSON.stringify(tasks)]
       );
       return res as TaskrUser[];

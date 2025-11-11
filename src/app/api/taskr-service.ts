@@ -46,7 +46,7 @@ interface TaskrService {
   deleteTask: (
     userId: string,
     taskId: string
-  ) => Promise<ServiceResponse<{ id: string }>>;
+  ) => Promise<ServiceResponse<TaskrUser>>;
 }
 
 const taskrService: TaskrService = {
@@ -83,6 +83,9 @@ const taskrService: TaskrService = {
 
   async addTask(id, task) {
     if (!validateNewTask(task)) {
+      console.log("Task is invalid");
+      console.log(task);
+
       return serviceResponse(400);
     }
 
@@ -104,7 +107,10 @@ const taskrService: TaskrService = {
   },
 
   async updateTasks(userId, tasks) {
-    if (!tasks.some((t) => !validateTask(t))) {
+    if (tasks.some((t) => !validateTask(t))) {
+      console.log("Tasks  invalid");
+      console.log(tasks);
+
       return serviceResponse(400);
     }
     const res = await neonQueries.updateUserTasks(userId, tasks);
@@ -132,9 +138,9 @@ export default taskrService;
 
 function validateNewTask(task: NewTaskrTask) {
   const keys: (keyof NewTaskrTask)[] = ["title", "dueDate", "status"];
-  return !keys.some((k) => !task[k]);
+  return !keys.some((k) => task[k] === null || task[k] === undefined);
 }
 function validateTask(task: TaskrTask) {
   const keys: (keyof TaskrTask)[] = ["id", "title", "dueDate", "status"];
-  return !keys.some((k) => !task[k]);
+  return !keys.some((k) => task[k] === null || task[k] === undefined);
 }

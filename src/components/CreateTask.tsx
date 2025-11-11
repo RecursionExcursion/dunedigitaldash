@@ -7,11 +7,12 @@ import { Input } from "./general/Input";
 import { useAppContext } from "../context/AppContext";
 import Button from "./general/Button";
 import imgs from "../service/img-service";
+import { addTask } from "../service/task-service";
 
 //TODO Move to file, so only happens once
 
 export default function CreateTask() {
-  const { loadUser, userId } = useAppContext();
+  const { loadUser } = useAppContext();
 
   const [task, setTask] = useState({
     title: "",
@@ -115,29 +116,26 @@ export default function CreateTask() {
           </label>
         </div>
         <Button
-          // onClick={async (e) => {
-          //   e.preventDefault();
+          onClick={async (e) => {
+            e.preventDefault();
+            //in UTC 0
+            const epochDueDate = new Date(task.dueDate).getTime();
 
-          //   console.log({ task });
+            const res = await addTask({
+              title: task.title,
+              status: task.status,
+              details: task.details,
+              dueDate: epochDueDate,
+              imageKey: task.imgKey ? task.imgKey : undefined,
+            });
 
-          //   //in UTC 0
-          //   const epochDueDate = new Date(task.dueDate).getTime();
-
-          //   const res = await addTask(userId, {
-          //     title: task.title,
-          //     status: task.status,
-          //     details: task.details,
-          //     dueDate: epochDueDate,
-          //     imageKey: task.imgKey ? task.imgKey : undefined,
-          //   });
-
-          //   if (res.ok) {
-          //     loadUser();
-          //     //clear fields
-          //   } else {
-          //     alert(res.msg);
-          //   }
-          // }}
+            if (res.ok) {
+              loadUser();
+              //clear fields
+            } else {
+              alert(res.msg);
+            }
+          }}
         >
           Create
         </Button>

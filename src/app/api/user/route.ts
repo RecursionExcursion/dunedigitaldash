@@ -16,7 +16,7 @@ export async function POST(req: Request) {
   const res = await taskrService.createUser(newUser);
 
   if (res.ok()) {
-    return new Response(null, {
+    return Response.json(res.data, {
       status: 201,
     });
   }
@@ -31,6 +31,7 @@ export const GET = pipe(authMW)(async (req) => {
     return new NextResponse(null, { status: 404 });
   }
   const res = await taskrService.readUser(id);
+  res.data.password = "";
 
   if (res.ok()) {
     return NextResponse.json(res.data);
@@ -44,5 +45,9 @@ export const PUT = pipe(authMW)(async (req) => {
   if (!id) {
     return new NextResponse(null, { status: 404 });
   }
+
+  //TODO
+  // const res = await taskrService.updateUser()
+
   return new NextResponse();
 });
