@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef } from "react";
 import { TaskrTask } from "../../lib/taskr-types";
 import Image from "next/image";
 import imgs from "../../service/img-service";
-import { bigArrowLeft, bigArrowRight } from "../../icons/arrows";
+import { bigArrowDown, bigArrowLeft, bigArrowRight, bigArrowUp } from "../../icons/arrows";
 import { trashCan } from "../../icons/trash";
 import { useAppContext } from "../../context/AppContext";
 import { peniclOn } from "../../icons/edit";
@@ -26,7 +26,7 @@ export function TaskCard(props: {
            transition-all duration-500 ease-out"
     >
       <div className="flex justify-between p-4 hidden md:block">
-        <button className="cursor-pointer text-white" onClick={() => {}}>
+        <button className="cursor-pointer text-white" onClick={() => { }}>
           {peniclOn}
         </button>
         <button
@@ -60,7 +60,7 @@ export function TaskCard(props: {
           <span
             className={
               new Date(t.dueDate).setHours(0, 0, 0, 0) <
-              new Date().setHours(0, 0, 0, 0)
+                new Date().setHours(0, 0, 0, 0)
                 ? "text-red-700 bg-white px-2 block py-2 w-fit rounded md:absolute top-8 right-2"
                 : "text-task-900 bg-white px-2 block py-2 w-fit rounded md:absolute top-8 right-2"
             }
@@ -77,12 +77,12 @@ export function TaskCard(props: {
         <ChangeStatusButton
           onClick={() => updateTaskStatus(t.id, colStatus - 1)}
         >
-          {bigArrowLeft}
+          {bigArrowUp}
         </ChangeStatusButton>
         <ChangeStatusButton
           onClick={() => updateTaskStatus(t.id, colStatus + 1)}
         >
-          {bigArrowRight}
+          {bigArrowDown}
         </ChangeStatusButton>
       </div>
     </article>
