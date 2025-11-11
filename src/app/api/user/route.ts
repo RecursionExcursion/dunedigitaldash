@@ -25,7 +25,7 @@ export async function POST(req: Request) {
     statusText: res.msg,
   });
 }
-export const GET = pipe(authMW)(async function (req) {
+export const GET = pipe(authMW)(async (req) => {
   const id = req.headers.get(INTERNAL_UID_HEADER);
   if (!id) {
     return new NextResponse(null, { status: 404 });
@@ -39,4 +39,10 @@ export const GET = pipe(authMW)(async function (req) {
   return new NextResponse(null, { status: 500 });
 });
 
-export async function PUT(req: Request) {}
+export const PUT = pipe(authMW)(async (req) => {
+  const id = req.headers.get(INTERNAL_UID_HEADER);
+  if (!id) {
+    return new NextResponse(null, { status: 404 });
+  }
+  return new NextResponse();
+});
