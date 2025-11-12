@@ -29,7 +29,6 @@ export async function taskrRepo(connectionString: string) {
       const res = await sql.query(`SELECT * FROM ${tableName} WHERE id = $1`, [
         id,
       ]);
-      console.log({ res });
       return res as TaskrUser[];
     },
 
