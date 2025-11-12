@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { NewTaskrUser } from "../../../lib/taskr-types";
+import { NewTaskrUser, TaskrUser } from "../../../lib/taskr-types";
 import taskrService from "../taskr-service";
 import { pipe } from "../nextApi";
 import { authMW, INTERNAL_UID_HEADER } from "../auth";
@@ -46,8 +46,11 @@ export const PUT = pipe(authMW)(async (req) => {
     return new NextResponse(null, { status: 404 });
   }
 
-  //TODO
-  // const res = await taskrService.updateUser()
+  const usr = (await req.json()) as TaskrUser;
 
-  return new NextResponse();
+  const res = await taskrService.updateUser(usr);
+
+  return NextResponse.json(res.data, {
+    status: res.code,
+  });
 });

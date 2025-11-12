@@ -72,6 +72,10 @@ const taskrService: TaskrService = {
   },
 
   async updateUser(user) {
+    if (!validateUser(user)) {
+      return serviceResponse(400);
+    }
+
     const res = await neonQueries.updateUser(user);
     return !!res[0] ? serviceResponse(200, "", res[0]) : serviceResponse(404);
   },
@@ -83,9 +87,6 @@ const taskrService: TaskrService = {
 
   async addTask(id, task) {
     if (!validateNewTask(task)) {
-      console.log("Task is invalid");
-      console.log(task);
-
       return serviceResponse(400);
     }
 
@@ -140,7 +141,13 @@ function validateNewTask(task: NewTaskrTask) {
   const keys: (keyof NewTaskrTask)[] = ["title", "dueDate", "status"];
   return !keys.some((k) => task[k] === null || task[k] === undefined);
 }
+
 function validateTask(task: TaskrTask) {
   const keys: (keyof TaskrTask)[] = ["id", "title", "dueDate", "status"];
+  return !keys.some((k) => task[k] === null || task[k] === undefined);
+}
+
+function validateUser(task: TaskrUser) {
+  const keys: (keyof TaskrUser)[] = ["id", "username", "password", "tasks"];
   return !keys.some((k) => task[k] === null || task[k] === undefined);
 }
